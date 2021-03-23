@@ -1,5 +1,5 @@
-import React, { useReducer, useCallback } from "react";
-import { urgencies, categories, todoFormInputs, ACTIONS } from "../constants.js";
+import React, { useCallback } from "react";
+import { urgencies, categories, ACTIONS } from "../constants.js";
 import { TodoForm } from "./TodoForm";
 
 const uuid = () => new Date().valueOf();
