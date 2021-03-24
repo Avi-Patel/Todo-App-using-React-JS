@@ -1,5 +1,5 @@
 import "../../TodoApp.css";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 
 import FilterPanel from "./FilterPanel";
 import Header from "./Header";
@@ -14,11 +14,16 @@ import { useFilterState } from "../hooks/useFilterState";
 import { useEditWindow } from "../hooks/useEditWindow";
 
 import { validateTodoForFilter } from "../filterValidationOnTodo";
+import { ACTIONS } from "../constants";
 
 const TodoApp = () => {
   const [todosState, onTodoAction] = useTodosState();
   const [filterState, onFilterAction] = useFilterState();
   const [editWindowData, onEditWindowAction] = useEditWindow(onTodoAction);
+
+  useEffect(() => {
+    onTodoAction({ type: ACTIONS.INIT });
+  }, [onTodoAction]);
 
   // useCallback ? TodoApp will re-render only when todosState or filterState is changed.
   const filteredTodos = useMemo(

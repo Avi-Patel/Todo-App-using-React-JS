@@ -41,8 +41,8 @@ const EditWindow = ({ todo, onEditWindowAction }) => {
   ]);
 
   return (
-    <div className="updateModal">
-      <div className="modalContent b12 pad12">
+    <div className="modal">
+      <div className="modal__modal-content b12 pad12">
         <div className="cwhite normal-bold-title top-bottom-mar8">Update Your Data</div>
         <TodoForm formData={formData} handleFormChange={handleFormChange} />
         <div>

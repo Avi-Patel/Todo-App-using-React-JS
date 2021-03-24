@@ -347,9 +347,6 @@ select:focus {
   background-color: blue;
   border: 1px solid white;
 }
-.selectAndDeleteCircle:hover {
-  cursor: pointer;
-}
 
 .reduced-opacity {
   opacity: 0.6;
@@ -358,7 +355,7 @@ select:focus {
   opacity: 1;
 }
 
-.updateModal {
+.modal {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -372,20 +369,13 @@ select:focus {
   background-color: rgba(200, 200, 200, 0.4);
   transition: 1s;
 }
-.modalContent {
+.modal__modal-content {
   background-color: rgb(45, 45, 45);
   display: flex;
   width: 20%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.updateTodoTitle {
-  border-radius: 20px;
-}
-.updateModalPreference {
-  border-radius: 20px;
-  width: 100%;
 }
 
 .snackbar {

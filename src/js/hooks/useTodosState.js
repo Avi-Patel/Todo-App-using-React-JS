@@ -76,6 +76,15 @@ export const useTodosState = () => {
 
   const showSnackbar = useContext(SnackbarContext);
 
+  const initializeTodos = useCallback(() => {
+    mockServer
+      .getTodosFromDatabase()
+      .then((todos) => {
+        dispatch({ type: ACTIONS.ADD, payload: { newTodos: todos } });
+      })
+      .catch(showSnackbar);
+  }, [showSnackbar]);
+
   const addTodo = useCallback(
     (newTodo) => {
       mockServer
@@ -127,6 +136,9 @@ export const useTodosState = () => {
   const onTodoAction = useCallback(
     ({ type, payload }) => {
       switch (type) {
+        case ACTIONS.INIT:
+          initializeTodos();
+          break;
         case ACTIONS.ADD:
           addTodo(payload.newTodo);
           break;
@@ -146,7 +158,7 @@ export const useTodosState = () => {
           break;
       }
     },
-    [addTodo, updateTodo, deleteTodo]
+    [addTodo, updateTodo, deleteTodo, initializeTodos]
   );
 
   return [todosState, onTodoAction];

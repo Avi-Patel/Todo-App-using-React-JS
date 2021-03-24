@@ -3,7 +3,9 @@ const createMockServer = () => {
 
   const getIndexInDatabase = (id) => todos.findIndex((todo) => todo.id === id);
 
-  const serverWorking = () => Math.random() <= 0.3;
+  const serverWorking = () => Math.random() <= 0.9999;
+
+  const updateLocalStorage = () => localStorage.setItem("todos", JSON.stringify(todos));
 
   return {
     getTodosFromDatabase: () =>
@@ -20,17 +22,12 @@ const createMockServer = () => {
         resolve(newTodos);
       }),
 
-    storeTodosToDatabase: () =>
-      new Promise((resolve, reject) => {
-        localStorage.setItem("todos", JSON.stringify(todos));
-        resolve();
-      }),
-
     createTodoInDatabase: (newTodos) =>
       new Promise((resolve, reject) => {
         if (serverWorking()) {
           const newTodosAsArray = Array.isArray(newTodos) ? newTodos : [newTodos];
           newTodosAsArray.forEach((newTodo) => (todos = todos.concat({ ...newTodo })));
+          updateLocalStorage();
           resolve();
         } else {
           reject("Opps!! something went wrong server side, plz try again after sometime");
@@ -49,6 +46,7 @@ const createMockServer = () => {
               .slice(0, index)
               .concat({ ...updatedTodosAsArray[i] }, todos.slice(index + 1));
           });
+          updateLocalStorage();
           resolve();
         } else {
           reject("Opps!! Cannot update right now, plz try again after sometime");
@@ -64,6 +62,7 @@ const createMockServer = () => {
             const index = getIndexInDatabase(id);
             todos = todos.slice(0, index).concat(todos.slice(index + 1));
           });
+          updateLocalStorage();
           resolve();
         } else {
           reject("Opps!! something went wrong while deleting TODO, plz try again after sometime");
