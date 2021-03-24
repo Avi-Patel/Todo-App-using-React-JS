@@ -1,28 +1,36 @@
-import React from "react";
-import { filterPanelActions } from "../constants";
-import { TextInput } from "./TextInput";
+import React, { useCallback } from "react";
 
-const AppTitleAndDate = () => {
-  // Date will not get updated if Header does not re-render bcz of no prop changes.
+import TextInput from "./TextInput";
+
+import { FILTER_ACTIONS } from "../constants";
+
+const AppTitleAndDate = React.memo(({ date }) => {
   return (
     <div className="header__left b8">
       <div className="header__left__name">Todo App</div>
-      <div className="header__left__date">{new Date().toDateString()}</div>
+      <div className="header__left__date">{date}</div>
     </div>
   );
-};
+});
 
-const SearchBar = React.memo(({ searchValue, dispatch }) => {
-  const handleSearchChange = (event) => {
-    dispatch({
-      type: filterPanelActions.UPDATE_SEARCH_VALUE,
-      payload: { newSearchValue: event.target.value },
+const SearchBar = React.memo(({ searchValue, onFilterAction }) => {
+  // Doubt : Search will re-render when searchValue changes. Should i use useCallback only to not create function again?
+  const handleSearchChange = useCallback(
+    (event) => {
+      onFilterAction({
+        type: FILTER_ACTIONS.UPDATE_SEARCH_VALUE,
+        payload: { newSearchValue: event.target.value },
+      });
+    },
+    [onFilterAction]
+  );
+
+  const handleClearSearch = useCallback(() => {
+    onFilterAction({
+      type: FILTER_ACTIONS.UPDATE_SEARCH_VALUE,
+      payload: { newSearchValue: "" },
     });
-  };
-
-  const handleClearSearch = () => {
-    dispatch({ type: filterPanelActions.UPDATE_SEARCH_VALUE, payload: { newSearchValue: "" } });
-  };
+  }, [onFilterAction]);
 
   return (
     <div className="header__right">
@@ -40,11 +48,13 @@ const SearchBar = React.memo(({ searchValue, dispatch }) => {
   );
 });
 
-export const Header = React.memo(({ searchValue, dispatch }) => {
+const Header = React.memo(({ date, searchValue, onFilterAction }) => {
   return (
     <div className="header b8 mar4">
-      <AppTitleAndDate />
-      <SearchBar searchValue={searchValue} dispatch={dispatch} />
+      <AppTitleAndDate date={date} />
+      <SearchBar searchValue={searchValue} onFilterAction={onFilterAction} />
     </div>
   );
 });
+
+export default Header;

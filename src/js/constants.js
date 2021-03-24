@@ -1,5 +1,4 @@
 export const ACTIONS = {
-  //
   TOGGLE_FROM_SELECTED: "TOGGLE_FROM_SELECTED",
   EDIT: "EDIT",
   ADD: "ADD",
@@ -10,6 +9,7 @@ export const ACTIONS = {
   ALTER_COMPLETION_IN_BULK: "ALTER_COMPLETION_IN_BULK",
   DELETE_IN_BULK: "DELETE_IN_BULK",
   RESET: "RESET",
+  RESET_SELECTED_IDS: "RESET_SELECTED_IDS",
 };
 
 export const BULK_ACTIONS = {
@@ -18,58 +18,56 @@ export const BULK_ACTIONS = {
   DELETE: "Delete",
 };
 
-export const categories = {
+export const EDIT_WINDOW_ACTIONS = {
+  SHOW: "SHOW",
+  CLOSE: "CLOSE",
+  UPDATE_DATA: "UPDATE_DATA",
+};
+
+export const CATEGORIES = {
   PERSONAL: "personal",
   ACADEMIC: "academic",
   SOCIAL: "social",
 };
-export const urgencies = {
+export const URGENCIES = {
   LOW: "low",
   MEDIUM: "medium",
   HIGH: "high",
 };
-export const categoryIconClass = {
+export const CATEGORY_ICON_CLASS = {
   USERALT: "fa-user",
   BOOKOPEN: "fa-book",
   USERS: "fa-users",
 };
 
-export const color = {
+export const COLOR = {
   GREEN: "cgreen",
   YELLOW: "cyellow",
   RED: "cred",
 };
 
-export const urgencyToColorMap = {
-  [urgencies.LOW]: color.GREEN,
-  [urgencies.MEDIUM]: color.YELLOW,
-  [urgencies.HIGH]: color.RED,
+export const URGENCY_TO_COLOR_MAP = {
+  [URGENCIES.LOW]: COLOR.GREEN,
+  [URGENCIES.MEDIUM]: COLOR.YELLOW,
+  [URGENCIES.HIGH]: COLOR.RED,
 };
-export const categoryToIconClassMap = {
-  [categories.PERSONAL]: categoryIconClass.USERALT,
-  [categories.ACADEMIC]: categoryIconClass.BOOKOPEN,
-  [categories.SOCIAL]: categoryIconClass.USERS,
-};
-
-export const todoFormInputs = {
-  TITLE: "TITLE",
-  URGENCY: "URGENCY",
-  CATEGORY: "CATEGORY",
+export const CATEGORY_TO_ICON_CLASS_MAP = {
+  [CATEGORIES.PERSONAL]: CATEGORY_ICON_CLASS.USERALT,
+  [CATEGORIES.ACADEMIC]: CATEGORY_ICON_CLASS.BOOKOPEN,
+  [CATEGORIES.SOCIAL]: CATEGORY_ICON_CLASS.USERS,
 };
 
-export const filterPanelActions = {
+export const TODO_FORM_INPUTS = {
+  TITLE: "Title",
+  URGENCY: "Urgency",
+  CATEGORY: "Category",
+};
+
+export const FILTER_ACTIONS = {
   UPDATE_URGENCY_FILTER: "UPDATE_URGENCY_FILTER",
   UPDATE_CATEGORY_FILTER: "UPDATE_CATEGORY_FILTER",
   TOGGLE_INCOMPLETE_ENABLED: "TOGGLE_INCOMPLETE_ENABLED",
   UPDATE_SEARCH_VALUE: "UPDATE_SEARCH_VALUE",
 };
 
-export const filterNames = {
-  URGENCY: "urgency",
-  CATEGORY: "category",
-};
-
 export const INVALID_POSITION = -1;
-
-export const urgencyOptions = [urgencies.LOW, urgencies.MEDIUM, urgencies.HIGH];
-export const categoryOptions = [categories.PERSONAL, categories.ACADEMIC, categories.SOCIAL];

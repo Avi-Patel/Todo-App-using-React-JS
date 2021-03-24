@@ -1,19 +1,21 @@
 import React, { useCallback } from "react/cjs/react.development";
+
+import Checkbox from "./Checkbox";
+
 import {
-  urgencies,
-  categories,
-  filterPanelActions,
-  urgencyToColorMap,
-  categoryToIconClassMap,
+  URGENCIES,
+  CATEGORIES,
+  FILTER_ACTIONS,
+  URGENCY_TO_COLOR_MAP,
+  CATEGORY_TO_ICON_CLASS_MAP,
 } from "../constants";
-import { Checkbox } from "./Checkbox";
 
 const UrgencyPanel = React.memo(({ label, urgencyFilter, handleFilterUpdate }) => {
   return (
     <div className="filter-row top-bottom-pad8">
       <div className="normal-bold-title right-left-pad8">{label}</div>
       <div className="filter-btns">
-        {Object.entries(urgencies).map(([key, value]) => {
+        {Object.entries(URGENCIES).map(([key, value]) => {
           return (
             <button
               key={key}
@@ -21,7 +23,7 @@ const UrgencyPanel = React.memo(({ label, urgencyFilter, handleFilterUpdate }) =
               data-type={value}
               onClick={handleFilterUpdate}
             >
-              <i className={`fa fa-exclamation-triangle ${urgencyToColorMap[value]}`}></i>
+              <i className={`fa fa-exclamation-triangle ${URGENCY_TO_COLOR_MAP[value]}`}></i>
             </button>
           );
         })}
@@ -35,7 +37,7 @@ const CategoryPanel = React.memo(({ label, categoryFilter, handleFilterUpdate })
     <div className="filter-row top-bottom-pad8">
       <div className="normal-bold-title right-left-pad8">{label}</div>
       <div className="filter-btns">
-        {Object.entries(categories).map(([key, value]) => {
+        {Object.entries(CATEGORIES).map(([key, value]) => {
           return (
             <button
               key={key}
@@ -43,7 +45,7 @@ const CategoryPanel = React.memo(({ label, categoryFilter, handleFilterUpdate })
               data-type={value}
               onClick={handleFilterUpdate}
             >
-              <i className={`fa ${categoryToIconClassMap[value]} cwhite`}></i>
+              <i className={`fa ${CATEGORY_TO_ICON_CLASS_MAP[value]} cwhite`}></i>
             </button>
           );
         })}
@@ -52,11 +54,11 @@ const CategoryPanel = React.memo(({ label, categoryFilter, handleFilterUpdate })
   );
 });
 
-export const FilterPanel = React.memo(({ filterState, dispatch }) => {
+const FilterPanel = React.memo(({ filterState, onFilterAction }) => {
   // name
   const toggleIsInCompleteEnabled = useCallback(
-    () => dispatch({ type: filterPanelActions.TOGGLE_INCOMPLETE_ENABLED }),
-    [dispatch]
+    () => onFilterAction({ type: FILTER_ACTIONS.TOGGLE_INCOMPLETE_ENABLED }),
+    [onFilterAction]
   );
 
   const handleUrgencyFilterUpdate = useCallback(
@@ -64,30 +66,30 @@ export const FilterPanel = React.memo(({ filterState, dispatch }) => {
       const buttonElement = event.target.closest("[data-type]");
 
       if (buttonElement) {
-        dispatch({
-          type: filterPanelActions.UPDATE_URGENCY_FILTER,
+        onFilterAction({
+          type: FILTER_ACTIONS.UPDATE_URGENCY_FILTER,
           payload: { type: buttonElement.dataset.type },
         });
       }
     },
-    [dispatch]
+    [onFilterAction]
   );
   const handleCategoryFilterUpdate = useCallback(
     (event) => {
       const buttonElement = event.target.closest("[data-type]");
 
       if (buttonElement) {
-        dispatch({
-          type: filterPanelActions.UPDATE_CATEGORY_FILTER,
+        onFilterAction({
+          type: FILTER_ACTIONS.UPDATE_CATEGORY_FILTER,
           payload: { type: buttonElement.dataset.type },
         });
       }
     },
-    [dispatch]
+    [onFilterAction]
   );
 
   return (
-    <div className="card b12 pad8 top-bottom-mar8">
+    <div className="card b12 pad8">
       <UrgencyPanel
         label="Urgency"
         urgencyFilter={filterState.urgencyFilter}
@@ -107,3 +109,5 @@ export const FilterPanel = React.memo(({ filterState, dispatch }) => {
     </div>
   );
 });
+
+export default FilterPanel;

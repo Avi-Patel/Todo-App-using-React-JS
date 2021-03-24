@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Dropdown = React.memo(({ name, initialValue, values, handleChange }) => {
+const Dropdown = React.memo(({ name, initialValue, values, handleChange }) => {
   return (
     <select
       data-name={name}
@@ -18,3 +18,5 @@ export const Dropdown = React.memo(({ name, initialValue, values, handleChange }
     </select>
   );
 });
+
+export default Dropdown;

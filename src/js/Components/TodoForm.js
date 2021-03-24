@@ -1,62 +1,38 @@
-import React, { useReducer, useCallback } from "react";
-import { urgencies, categories, todoFormInputs, ACTIONS } from "../constants";
-import { TextInput } from "./TextInput";
-import { Dropdown } from "./Dropdown";
+import React from "react";
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case todoFormInputs.TITLE:
-      return { ...state, title: action.payload.newValue };
-    case todoFormInputs.URGENCY:
-      return { ...state, urgency: action.payload.newValue };
-    case todoFormInputs.CATEGORY:
-      return { ...state, category: action.payload.newValue };
-    case ACTIONS.RESET:
-      return { ...action.payload.initialFormData };
-    default:
-      return state;
-  }
-};
+import TextInput from "./TextInput";
+import Dropdown from "./Dropdown";
+
+import { URGENCIES, CATEGORIES, TODO_FORM_INPUTS } from "../constants";
 
 // reusable TodoForm, will use it in todo Edit Window too.
-export const TodoForm = React.memo(({ initialFormData, handleSubmit }) => {
-  const [formData, dispatch] = useReducer(reducer, initialFormData);
-
-  const handleFormChange = useCallback((event) => {
-    dispatch({ type: event.target.dataset.name, payload: { newValue: event.target.value } });
-  }, []);
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    handleSubmit(formData);
-    dispatch({ type: ACTIONS.RESET, payload: { initialFormData } });
-  };
-
+const TodoForm = React.memo(({ formData, handleFormChange }) => {
   return (
-    <form className="form" onSubmit={handleFormSubmit}>
-      <div className="normal-bold-title mar8">Title</div>
+    <div className="form">
       <TextInput
-        name={todoFormInputs.TITLE}
+        name={TODO_FORM_INPUTS.TITLE}
         placeholder="Add Todo Title"
         value={formData.title}
         handleChange={handleFormChange}
       />
 
-      <div className="normal-bold-title mar8">Urgency</div>
+      <div className="normal-bold-title mar8">{TODO_FORM_INPUTS.URGENCY}</div>
       <Dropdown
-        name={todoFormInputs.URGENCY}
+        name={TODO_FORM_INPUTS.URGENCY}
         initialValue={formData.urgency}
-        values={urgencies}
+        values={URGENCIES}
         handleChange={handleFormChange}
       />
 
-      <div className="normal-bold-title mar8">Category</div>
+      <div className="normal-bold-title mar8">{TODO_FORM_INPUTS.CATEGORY}</div>
       <Dropdown
-        name={todoFormInputs.CATEGORY}
+        name={TODO_FORM_INPUTS.CATEGORY}
         initialValue={formData.category}
-        values={categories}
+        values={CATEGORIES}
         handleChange={handleFormChange}
       />
-    </form>
+    </div>
   );
 });
+
+export default TodoForm;

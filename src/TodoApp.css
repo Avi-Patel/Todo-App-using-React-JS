@@ -75,7 +75,7 @@ select:focus {
 .top-mar8 {
   margin-top: 8px;
 }
-.botton-mar8 {
+.bottom-mar8 {
   margin-bottom: 8px;
 }
 .green-btn {
@@ -389,7 +389,6 @@ select:focus {
 }
 
 .snackbar {
-  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -403,13 +402,11 @@ select:focus {
   left: 50px;
   right: 50px;
   font-size: 17px;
+  /* -webkit-animation: fadein 0.5s, fadeout 0.5s 3.5s; */
+  /* animation: fadein 0.5s, fadeout 0.5s 3.5s; */
 }
 
-.snackbar.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 3.5s;
-  animation: fadein 0.5s, fadeout 0.5s 3.5s;
-}
+
 
 @-webkit-keyframes fadein {
   from {

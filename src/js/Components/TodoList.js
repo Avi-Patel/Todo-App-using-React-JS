@@ -1,12 +1,22 @@
-import { Todo } from "./Todo";
+import Todo from "./Todo";
 
-export const TodoList = ({ todos, currentlySelectedIds, onAction }) => {
+const TodoList = ({ todosState, onTodoAction, onEditWindowAction }) => {
   return (
     <div className="col2 b8 pad8">
-      {todos.map((todo) => {
-        const isSelected = currentlySelectedIds.indexOf(todo.id) !== -1;
-        return <Todo key={todo.id} todo={todo} isSelected={isSelected} onAction={onAction} />;
+      {todosState.todos.map((todo) => {
+        const isSelected = todosState.currentlySelectedIds.includes(todo.id);
+        return (
+          <Todo
+            key={todo.id}
+            todo={todo}
+            isSelected={isSelected}
+            onTodoAction={onTodoAction}
+            onEditWindowAction={onEditWindowAction}
+          />
+        );
       })}
     </div>
   );
 };
+
+export default TodoList;

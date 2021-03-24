@@ -1,9 +1,9 @@
 const createMockServer = () => {
   let todos = [];
 
-  const getIndexInDatabase = (id) => todos.findIndex((todo) => todo.ID === id);
+  const getIndexInDatabase = (id) => todos.findIndex((todo) => todo.id === id);
 
-  const serverWorking = () => Math.random() <= 0.98;
+  const serverWorking = () => Math.random() <= 0.3;
 
   return {
     getTodosFromDatabase: () =>

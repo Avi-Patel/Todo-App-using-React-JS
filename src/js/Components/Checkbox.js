@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Checkbox = React.memo(({ label, isChecked, handleChange }) => {
+const Checkbox = React.memo(({ label, isChecked, handleChange }) => {
   return (
     <div className="check-box-row mar8 pad8">
       <input
@@ -13,3 +13,5 @@ export const Checkbox = React.memo(({ label, isChecked, handleChange }) => {
     </div>
   );
 });
+
+export default Checkbox;
