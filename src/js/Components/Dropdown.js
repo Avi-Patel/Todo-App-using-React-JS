@@ -1,22 +1,11 @@
 import React from "react";
 
-const Dropdown = React.memo(({ name, initialValue, values, handleChange }) => {
-  return (
-    <select
-      data-name={name}
-      value={initialValue}
-      className="dropdown mar8 pad12"
-      onChange={handleChange}
-    >
-      {Object.keys(values).map((key) => {
-        return (
-          <option key={key} value={values[key]}>
-            {values[key][0].toUpperCase() + values[key].slice(1)}
-          </option>
-        );
-      })}
-    </select>
-  );
-});
-
-export default Dropdown;
+export const Dropdown = React.memo(({ name, initialValue, values, onChange }) => (
+  <select data-name={name} value={initialValue} className="dropdown mar8 pad12" onChange={onChange}>
+    {Object.entries(values).map(([key, value]) => (
+      <option key={key} value={value}>
+        {value[0].toUpperCase() + value.slice(1)}
+      </option>
+    ))}
+  </select>
+));

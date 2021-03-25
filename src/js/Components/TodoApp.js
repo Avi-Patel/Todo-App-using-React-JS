@@ -1,65 +1,63 @@
-import "../../TodoApp.css";
 import { useMemo, useEffect } from "react";
 
-import FilterPanel from "./FilterPanel";
-import Header from "./Header";
-import CreateTodoForm from "./CreateTodoForm";
-import Analytics from "./Analytics";
-import TodoList from "./TodoList";
-import BulkActionPanel from "./BulkActionPanel";
-import EditWindow from "./EditWindow";
+import { FilterPanel } from "./FilterPanel";
+import { Header } from "./Header";
+import { CreateTodoForm } from "./CreateTodoForm";
+import { Analytics } from "./Analytics";
+import { TodoList } from "./TodoList";
+import { BulkActionPanel } from "./BulkActionPanel";
+import { ModalWindow } from "./ModalWindow";
 
 import { useTodosState } from "../hooks/useTodosState";
 import { useFilterState } from "../hooks/useFilterState";
-import { useEditWindow } from "../hooks/useEditWindow";
+import { useModalWindow } from "../hooks/useModalWindow";
+import { useDate } from "../hooks/useDate";
 
 import { validateTodoForFilter } from "../filterValidationOnTodo";
 import { ACTIONS } from "../constants";
 
-const TodoApp = () => {
-  const [todosState, onTodoAction] = useTodosState();
-  const [filterState, onFilterAction] = useFilterState();
-  const [editWindowData, onEditWindowAction] = useEditWindow(onTodoAction);
+import "../../TodoApp.css";
 
-  useEffect(() => {
-    onTodoAction({ type: ACTIONS.INIT });
-  }, [onTodoAction]);
+export const TodoApp = () => {
+  const { todosState, onTodoAction } = useTodosState();
+  const { filterState, onFilterAction } = useFilterState();
+  const { modalWindow, onModalWindowAction } = useModalWindow(onTodoAction);
+  const { date } = useDate();
 
-  // useCallback ? TodoApp will re-render only when todosState or filterState is changed.
+  useEffect(() => onTodoAction({ type: ACTIONS.INIT }), [onTodoAction]);
+
   const filteredTodos = useMemo(
     () => todosState.todos.filter((todo) => validateTodoForFilter(todo, filterState)),
     [todosState.todos, filterState]
   );
 
-  const totalTodos = useMemo(() => filteredTodos.length, [filteredTodos.length]);
+  const totalTodos = filteredTodos.length;
   const completedTodos = useMemo(() => filteredTodos.filter((todo) => todo.completed).length, [
     filteredTodos,
   ]);
-
-  //Doubt: define date here in TodoApp or do not memoize Header?
-  const date = new Date().toDateString();
 
   return (
     <>
       <Header date={date} searchValue={filterState.searchValue} onFilterAction={onFilterAction} />
       <div className="todo-app-body mar4">
         <div className="col1 b8 pad8">
-          <FilterPanel filterState={filterState} onFilterAction={onFilterAction} />
+          <FilterPanel AppliedFilter={filterState} onFilterAction={onFilterAction} />
           <CreateTodoForm onTodoAction={onTodoAction} />
           <Analytics totalTodos={totalTodos} completedTodos={completedTodos} />
         </div>
-        <TodoList
-          todosState={todosState}
-          onTodoAction={onTodoAction}
-          onEditWindowAction={onEditWindowAction}
-        />
+        <div className="col2 b8 pad8">
+          <TodoList
+            todos={filteredTodos}
+            currentlySelectedIds={todosState.currentlySelectedIds}
+            onTodoAction={onTodoAction}
+            onModalWindowAction={onModalWindowAction}
+          />
+        </div>
       </div>
-      <BulkActionPanel todosState={todosState} onTodoAction={onTodoAction} />
-      {editWindowData.isOpen && (
-        <EditWindow todo={editWindowData.payload} onEditWindowAction={onEditWindowAction} />
+      <BulkActionPanel todosData={todosState} onTodoAction={onTodoAction} />
+      {modalWindow.isOpen && (
+        <ModalWindow todo={modalWindow.data} onModalWindowAction={onModalWindowAction} />
       )}
     </>
   );
 };
-
-export default TodoApp;

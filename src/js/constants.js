@@ -19,10 +19,16 @@ export const BULK_ACTIONS = {
   DELETE: "Delete",
 };
 
-export const EDIT_WINDOW_ACTIONS = {
+export const MODAL_WINDOW_ACTIONS = {
   SHOW: "SHOW",
   CLOSE: "CLOSE",
   UPDATE_DATA: "UPDATE_DATA",
+};
+
+export const HISTORY_ACTIONS = {
+  ADD_ACTIONS: "ADD_ACTION",
+  UNDO_SUCCESS: "UNDO_SUCCESS",
+  REDO_SUCCESS: "REDO_SUCCESS",
 };
 
 export const CATEGORIES = {
@@ -39,6 +45,11 @@ export const CATEGORY_ICON_CLASS = {
   USERALT: "fa-user",
   BOOKOPEN: "fa-book",
   USERS: "fa-users",
+};
+export const BULK_ACTIONS_ICON_CLASS = {
+  [BULK_ACTIONS.TOGGLE_COMPLETION]: "fa-check-square",
+  [BULK_ACTIONS.CLEAR_SELECTION]: "fa-square-o",
+  [BULK_ACTIONS.DELETE]: "fa-minus-square",
 };
 
 export const COLOR = {

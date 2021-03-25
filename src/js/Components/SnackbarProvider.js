@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
 
-import SnackbarContext from "../contexts/snackbarContext";
+const SnackbarContext = React.createContext();
 
 const SnackbarProvider = ({ children }) => {
   const [snackBarState, setSnackbarState] = useState({ show: false, message: undefined });
@@ -23,4 +23,5 @@ const SnackbarProvider = ({ children }) => {
   );
 };
 
-export default SnackbarProvider;
+export { SnackbarContext };
+export { SnackbarProvider };

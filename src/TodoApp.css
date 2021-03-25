@@ -94,12 +94,12 @@ select:focus {
 .text-center {
   text-align: center;
 }
-.normal-bold-title {
+.normal-bold-text {
   color: white;
   font-size: 16px;
   font-weight: bold;
 }
-.normal-title {
+.normal-text {
   color: white;
   font-size: 16px;
 }

@@ -1,14 +1,10 @@
 import { useCallback, useReducer, useContext } from "react";
 
-import SnackbarContext from "../contexts/snackbarContext";
+import { SnackbarContext } from "../components/SnackbarProvider";
 
 import { mockServer } from "../mockServer";
 import { ACTIONS } from "../constants";
 
-const initialtodosState = {
-  todos: [],
-  currentlySelectedIds: [],
-};
 const findIndexById = (todos, id) => todos.findIndex((todo) => todo.id === id);
 const findIndexToInsert = (todos, id) => {
   let index = todos.findIndex((todo, i) => todo.id > id && i > 0 && todos[i - 1].id < id);
@@ -71,22 +67,29 @@ const reducer = (state, action) => {
   }
 };
 
+const INITIAL_TODOS_STATE = {
+  todos: [],
+  currentlySelectedIds: [],
+};
+
 export const useTodosState = () => {
-  const [todosState, dispatch] = useReducer(reducer, initialtodosState);
+  const [todosState, dispatch] = useReducer(reducer, INITIAL_TODOS_STATE);
 
   const showSnackbar = useContext(SnackbarContext);
 
-  const initializeTodos = useCallback(() => {
-    mockServer
-      .getTodosFromDatabase()
-      .then((todos) => {
-        dispatch({ type: ACTIONS.ADD, payload: { newTodos: todos } });
-      })
-      .catch(showSnackbar);
-  }, [showSnackbar]);
+  const initializeTodos = useCallback(
+    () =>
+      mockServer
+        .getTodosFromDatabase()
+        .then((todos) => {
+          dispatch({ type: ACTIONS.ADD, payload: { newTodos: todos } });
+        })
+        .catch(showSnackbar),
+    [showSnackbar]
+  );
 
   const addTodo = useCallback(
-    (newTodo) => {
+    (newTodo) =>
       mockServer
         .createTodoInDatabase(newTodo)
         .then(() => {
@@ -95,13 +98,12 @@ export const useTodosState = () => {
             payload: { newTodos: Array.isArray(newTodo) ? newTodo : [newTodo] },
           });
         })
-        .catch(showSnackbar);
-    },
+        .catch(showSnackbar),
     [showSnackbar]
   );
 
   const updateTodo = useCallback(
-    (updatedTodo) => {
+    (updatedTodo) =>
       mockServer
         .updateTodoInDatabase(updatedTodo.id, updatedTodo)
         .then(() => {
@@ -113,13 +115,12 @@ export const useTodosState = () => {
             dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
           }
         })
-        .catch(showSnackbar);
-    },
+        .catch(showSnackbar),
     [showSnackbar]
   );
 
   const deleteTodo = useCallback(
-    (id) => {
+    (id) =>
       mockServer
         .deleteTodoFromDatabase(id)
         .then(() => {
@@ -128,8 +129,7 @@ export const useTodosState = () => {
             dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
           }
         })
-        .catch(showSnackbar);
-    },
+        .catch(showSnackbar),
     [showSnackbar]
   );
 
@@ -161,5 +161,5 @@ export const useTodosState = () => {
     [addTodo, updateTodo, deleteTodo, initializeTodos]
   );
 
-  return [todosState, onTodoAction];
+  return { todosState, onTodoAction };
 };

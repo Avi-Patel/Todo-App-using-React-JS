@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 
-import { BULK_ACTIONS, ACTIONS } from "../constants";
+import { BULK_ACTIONS, ACTIONS, BULK_ACTIONS_ICON_CLASS } from "../constants";
 
-const ButtonWithHiddenLabel = React.memo(({ label, iconClass, handleClick }) => {
+const ButtonWithHiddenLabel = React.memo(({ label, iconClass, onClick }) => {
   return (
     <div className="top-bottom-mar8" style={{ display: "flex", alignItems: "center" }}>
-      <button className="icon-btn expand" data-type={label} onClick={handleClick}>
+      <button className="icon-btn expand" data-type={label} onClick={onClick}>
         <div className={`fa ${iconClass} cwhite`}></div>
       </button>
       <div className="hidden-label">{label}</div>
@@ -13,16 +13,16 @@ const ButtonWithHiddenLabel = React.memo(({ label, iconClass, handleClick }) => 
   );
 });
 
-const BulkActionPanel = React.memo(({ todosState, onTodoAction }) => {
+export const BulkActionPanel = React.memo(({ todosData, onTodoAction }) => {
   const handleBulkCompletionToggle = useCallback(() => {
-    const updatedTodo = todosState.todos.map((todo) => {
-      if (todosState.currentlySelectedIds.includes(todo.id)) {
+    const updatedTodo = todosData.todos.map((todo) => {
+      if (todosData.currentlySelectedIds.includes(todo.id)) {
         return { ...todo, completed: !todo.completed };
       }
       return { ...todo };
     });
     onTodoAction({ type: ACTIONS.UPDATE, payload: { updatedTodo } });
-  }, [todosState, onTodoAction]);
+  }, [todosData, onTodoAction]);
 
   const handleClearSelection = useCallback(
     () => onTodoAction({ type: ACTIONS.RESET_SELECTED_IDS }),
@@ -33,30 +33,28 @@ const BulkActionPanel = React.memo(({ todosState, onTodoAction }) => {
     () =>
       onTodoAction({
         type: ACTIONS.DELETE,
-        payload: { id: todosState.currentlySelectedIds },
+        payload: { id: todosData.currentlySelectedIds },
       }),
-    [todosState.currentlySelectedIds, onTodoAction]
+    [todosData.currentlySelectedIds, onTodoAction]
   );
 
   return (
     <div className="selection-btns fixed">
       <ButtonWithHiddenLabel
         label={BULK_ACTIONS.TOGGLE_COMPLETION}
-        iconClass={"fa-check-square"}
-        handleClick={handleBulkCompletionToggle}
+        iconClass={BULK_ACTIONS_ICON_CLASS[BULK_ACTIONS.TOGGLE_COMPLETION]}
+        onClick={handleBulkCompletionToggle}
       />
       <ButtonWithHiddenLabel
         label={BULK_ACTIONS.CLEAR_SELECTION}
-        iconClass={"fa-square-o"}
-        handleClick={handleClearSelection}
+        iconClass={BULK_ACTIONS_ICON_CLASS[BULK_ACTIONS.CLEAR_SELECTION]}
+        onClick={handleClearSelection}
       />
       <ButtonWithHiddenLabel
         label={BULK_ACTIONS.DELETE}
-        iconClass={"fa-minus-square"}
-        handleClick={handleBulkDelete}
+        iconClass={BULK_ACTIONS_ICON_CLASS[BULK_ACTIONS.DELETE]}
+        onClick={handleBulkDelete}
       />
     </div>
   );
 });
-
-export default BulkActionPanel;

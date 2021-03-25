@@ -1,38 +1,33 @@
 import React from "react";
 
-import TextInput from "./TextInput";
-import Dropdown from "./Dropdown";
+import { TextInput } from "./TextInput";
+import { Dropdown } from "./Dropdown";
 
 import { URGENCIES, CATEGORIES, TODO_FORM_INPUTS } from "../constants";
 
-// reusable TodoForm, will use it in todo Edit Window too.
-const TodoForm = React.memo(({ formData, handleFormChange }) => {
-  return (
-    <div className="form">
-      <TextInput
-        name={TODO_FORM_INPUTS.TITLE}
-        placeholder="Add Todo Title"
-        value={formData.title}
-        handleChange={handleFormChange}
-      />
+export const TodoForm = React.memo(({ formData, onFormChange }) => (
+  <div className="form">
+    <TextInput
+      name={TODO_FORM_INPUTS.TITLE.toLocaleLowerCase()}
+      value={formData.title}
+      placeholder="Add Todo Title"
+      onChange={onFormChange}
+    />
 
-      <div className="normal-bold-title mar8">{TODO_FORM_INPUTS.URGENCY}</div>
-      <Dropdown
-        name={TODO_FORM_INPUTS.URGENCY}
-        initialValue={formData.urgency}
-        values={URGENCIES}
-        handleChange={handleFormChange}
-      />
+    <div className="normal-bold-text mar8">{TODO_FORM_INPUTS.URGENCY}</div>
+    <Dropdown
+      name={TODO_FORM_INPUTS.URGENCY.toLocaleLowerCase()}
+      initialValue={formData.urgency}
+      values={URGENCIES}
+      onChange={onFormChange}
+    />
 
-      <div className="normal-bold-title mar8">{TODO_FORM_INPUTS.CATEGORY}</div>
-      <Dropdown
-        name={TODO_FORM_INPUTS.CATEGORY}
-        initialValue={formData.category}
-        values={CATEGORIES}
-        handleChange={handleFormChange}
-      />
-    </div>
-  );
-});
-
-export default TodoForm;
+    <div className="normal-bold-text mar8">{TODO_FORM_INPUTS.CATEGORY}</div>
+    <Dropdown
+      name={TODO_FORM_INPUTS.CATEGORY.toLocaleLowerCase()}
+      initialValue={formData.category}
+      values={CATEGORIES}
+      onChange={onFormChange}
+    />
+  </div>
+));

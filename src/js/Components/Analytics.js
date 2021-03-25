@@ -1,6 +1,6 @@
 import React from "react";
 
-const Analytics = React.memo(({ totalTodos, completedTodos }) => {
+export const Analytics = React.memo(({ totalTodos, completedTodos }) => {
   // useMemo?
   const percentage = completedTodos === 0 ? 0 : Math.round((completedTodos / totalTodos) * 100);
 
@@ -12,9 +12,7 @@ const Analytics = React.memo(({ totalTodos, completedTodos }) => {
           {completedTodos} / {totalTodos}
         </div>
       </div>
-      <div className="normal-bold-title top-bottom-mar8">Analytics</div>
+      <div className="normal-bold-text top-bottom-mar8">Analytics</div>
     </div>
   );
 });
-
-export default Analytics;
