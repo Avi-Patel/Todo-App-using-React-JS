@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useState, useEffect } from "react";
 
 export const useDate = () => {
   const [date, setDate] = useState(new Date().toDateString());

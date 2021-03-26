@@ -6,7 +6,7 @@ export const ACTIONS = {
   DELETE: "DELETE",
   SELECT: "SELECT",
   TOGGLE_FROM_SELECTED: "TOGGLE_FROM_SELECTED",
-  MARK_COMPLETED: "MARK_COMPLETED",
+  TOGGLE_COMPLETION: "TOGGLE_COMPLETION",
   ALTER_COMPLETION_IN_BULK: "ALTER_COMPLETION_IN_BULK",
   DELETE_IN_BULK: "DELETE_IN_BULK",
   RESET: "RESET",
@@ -31,6 +31,7 @@ export const HISTORY_ACTIONS = {
   REDO_SUCCESS: "REDO_SUCCESS",
 };
 
+//
 export const CATEGORIES = {
   PERSONAL: "personal",
   ACADEMIC: "academic",
@@ -40,33 +41,6 @@ export const URGENCIES = {
   LOW: "low",
   MEDIUM: "medium",
   HIGH: "high",
-};
-export const CATEGORY_ICON_CLASS = {
-  USERALT: "fa-user",
-  BOOKOPEN: "fa-book",
-  USERS: "fa-users",
-};
-export const BULK_ACTIONS_ICON_CLASS = {
-  [BULK_ACTIONS.TOGGLE_COMPLETION]: "fa-check-square",
-  [BULK_ACTIONS.CLEAR_SELECTION]: "fa-square-o",
-  [BULK_ACTIONS.DELETE]: "fa-minus-square",
-};
-
-export const COLOR = {
-  GREEN: "cgreen",
-  YELLOW: "cyellow",
-  RED: "cred",
-};
-
-export const URGENCY_TO_COLOR_MAP = {
-  [URGENCIES.LOW]: COLOR.GREEN,
-  [URGENCIES.MEDIUM]: COLOR.YELLOW,
-  [URGENCIES.HIGH]: COLOR.RED,
-};
-export const CATEGORY_TO_ICON_CLASS_MAP = {
-  [CATEGORIES.PERSONAL]: CATEGORY_ICON_CLASS.USERALT,
-  [CATEGORIES.ACADEMIC]: CATEGORY_ICON_CLASS.BOOKOPEN,
-  [CATEGORIES.SOCIAL]: CATEGORY_ICON_CLASS.USERS,
 };
 
 export const TODO_FORM_INPUTS = {

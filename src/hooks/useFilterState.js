@@ -5,6 +5,7 @@ import { FILTER_ACTIONS } from "../constants";
 const INITIAL_FILTER_STATE = {
   urgencyFilter: {},
   categoryFilter: {},
+  //
   isIncompleteEnabled: false,
   searchValue: "",
 };

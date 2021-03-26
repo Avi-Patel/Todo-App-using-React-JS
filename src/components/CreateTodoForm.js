@@ -21,7 +21,7 @@ const INITIAL_FORM_DATA = {
   category: CATEGORIES.PERSONAL,
 };
 
-export const CreateTodoForm = React.memo(({ onTodoAction }) => {
+const CreateTodoForm = ({ onTodoAction }) => {
   // single useState
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
@@ -40,7 +40,7 @@ export const CreateTodoForm = React.memo(({ onTodoAction }) => {
     }
     onTodoAction({
       type: ACTIONS.ADD,
-      payload: { newTodo: createTodoObject(formData) },
+      payload: { newTodos: createTodoObject(formData) },
     });
     setFormData(INITIAL_FORM_DATA);
   }, [onTodoAction, formData]);
@@ -54,4 +54,6 @@ export const CreateTodoForm = React.memo(({ onTodoAction }) => {
       </button>
     </div>
   );
-});
+};
+const _CreateTodoForm = React.memo(CreateTodoForm);
+export { _CreateTodoForm as CreateTodoForm };

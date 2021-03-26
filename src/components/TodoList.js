@@ -1,8 +1,8 @@
 import { Todo } from "./Todo";
 
-export const TodoList = ({ todos, currentlySelectedIds, onTodoAction, onModalWindowAction }) => (
+const TodoList = ({ todos, currentlySelectedIds, onTodoAction, onModalWindowAction }) => (
   <>
-    {todos.length > 0 ? (
+    {todos.length ? (
       todos.map((todo) => (
         <Todo
           key={todo.id}
@@ -17,3 +17,5 @@ export const TodoList = ({ todos, currentlySelectedIds, onTodoAction, onModalWin
     )}
   </>
 );
+
+export { TodoList };

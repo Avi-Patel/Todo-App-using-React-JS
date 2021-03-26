@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Dropdown = React.memo(({ name, initialValue, values, onChange }) => (
+const Dropdown = ({ name, initialValue, values, onChange }) => (
   <select data-name={name} value={initialValue} className="dropdown mar8 pad12" onChange={onChange}>
     {Object.entries(values).map(([key, value]) => (
       <option key={key} value={value}>
@@ -8,4 +8,7 @@ export const Dropdown = React.memo(({ name, initialValue, values, onChange }) =>
       </option>
     ))}
   </select>
-));
+);
+
+const _Dropdown = React.memo(Dropdown);
+export { _Dropdown as Dropdown };

@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { SnackbarProvider } from "./js/components/SnackbarProvider";
-import { TodoApp } from "./js/components/TodoApp";
+import { SnackbarProvider } from "./components/SnackbarProvider";
+import { TodoApp } from "./components/TodoApp";
 
 import "./index.css";
 

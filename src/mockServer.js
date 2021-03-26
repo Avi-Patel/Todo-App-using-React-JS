@@ -34,17 +34,14 @@ const createMockServer = () => {
         }
       }),
 
-    updateTodoInDatabase: (ids, updatedTodos) =>
+    updateTodoInDatabase: (updatedTodos) =>
       new Promise((resolve, reject) => {
         if (serverWorking()) {
-          const idsAsArray = Array.isArray(ids) ? ids : [ids];
           const updatedTodosAsArray = Array.isArray(updatedTodos) ? updatedTodos : [updatedTodos];
 
-          idsAsArray.forEach((id, i) => {
-            const index = getIndexInDatabase(id);
-            todos = todos
-              .slice(0, index)
-              .concat({ ...updatedTodosAsArray[i] }, todos.slice(index + 1));
+          updatedTodosAsArray.forEach((updatedTodo, i) => {
+            const index = getIndexInDatabase(updatedTodo.id);
+            todos = todos.slice(0, index).concat({ ...updatedTodo }, todos.slice(index + 1));
           });
           updateLocalStorage();
           resolve();

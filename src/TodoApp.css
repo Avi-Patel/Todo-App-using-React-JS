@@ -78,6 +78,7 @@ select:focus {
 .bottom-mar8 {
   margin-bottom: 8px;
 }
+
 .green-btn {
   padding: 8px 12px;
   /* background-color: #3e8e41; */
@@ -91,7 +92,7 @@ select:focus {
   cursor: pointer;
   background-color: rgb(77, 77, 77);
 }
-.text-center {
+.align-center {
   text-align: center;
 }
 .normal-bold-text {
@@ -122,7 +123,7 @@ select:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(120, 120, 120);
+  background-color: rgb(120,120,120);
 }
 .header__left {
   display: flex;
@@ -131,8 +132,6 @@ select:focus {
   justify-content: space-between;
   padding: 10px 30px;
   width: 600px;
-  /* border-top-right-radius: 50%; */
-  /* border-bottom-right-radius: 50%; */
   background-color: rgb(45, 45, 45);
 }
 .header__right {
@@ -159,22 +158,23 @@ select:focus {
   display: flex;
   overflow: hidden;
 }
-.col1 {
+.sidebar {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 20%;
   height: 100%;
-  background-color: rgb(120, 120, 120);
+  /* background-color: rgb(120, 120, 120); */
+  border-right: 1px solid white;
   margin-right: 4px;
   overflow: scroll;
 }
 
 .card {
-  background-color: rgb(45, 45, 45);
+  background-color: rgb(75, 75, 75);
   width: 100%;
-  box-shadow: 0px 6px 10px -6px white;
+  /* box-shadow: 0px 6px 10px -6px white; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -217,6 +217,9 @@ select:focus {
   /* background-color: rgb(45, 45, 45); */
   cursor: pointer;
   box-shadow: 0px 0px 4px 1px white;
+}
+.bg-light {
+  background-color: white
 }
 
 .create-todo-text {
@@ -266,11 +269,11 @@ select:focus {
 .ratio-text {
   font-size: 12px;
 }
-.col2 {
+.todo-panel {
   width: 80%;
   height: 100%;
-  background-color: rgb(120, 120, 120);
-  margin-left: 4px;
+  /* background-color: rgb(120, 120, 120); */
+  margin-left: 80px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -285,7 +288,7 @@ select:focus {
 .fixed{
   position: absolute;
   top: 40%;
-  left: 21%;
+  left: 20%;
 }
 .hidden-label {
   padding: 10px 10px;
@@ -304,9 +307,13 @@ select:focus {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: rgb(45, 45, 45);
-  box-shadow: 0px 6px 10px -6px white;
+  background-color:  rgb(100, 100, 100);
+  /* box-shadow: 0px 6px 10px -6px white; */
   padding-bottom: 30px;
+}
+.todo:hover{
+  transition: 200ms;
+  box-shadow : 0px 0px 1px 1px white;
 }
 .todo .alter-visibility {
   visibility: hidden;
@@ -339,6 +346,7 @@ select:focus {
   border-radius: 50%;
   background-color: white;
   border: none;
+  cursor: pointer;
 }
 .blue-circle {
   width: 20px;
@@ -346,6 +354,7 @@ select:focus {
   border-radius: 50%;
   background-color: blue;
   border: 1px solid white;
+  cursor: pointer;
 }
 
 .reduced-opacity {
@@ -359,13 +368,13 @@ select:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed; /* Stay in place */
-  z-index: 200; /* Sit on top */
+  position: fixed;
+  z-index: 200; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  width: 100%; 
+  height: 100%;
+  overflow: auto;
   background-color: rgba(200, 200, 200, 0.4);
   transition: 1s;
 }
@@ -392,56 +401,7 @@ select:focus {
   left: 50px;
   right: 50px;
   font-size: 17px;
-  /* -webkit-animation: fadein 0.5s, fadeout 0.5s 3.5s; */
-  /* animation: fadein 0.5s, fadeout 0.5s 3.5s; */
 }
-
-
-
-@-webkit-keyframes fadein {
-  from {
-    bottom: -30px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0px;
-    opacity: 1;
-  }
-}
-
-@keyframes fadein {
-  from {
-    bottom: -30px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0px;
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeout {
-  from {
-    bottom: 0px;
-    opacity: 1;
-  }
-  to {
-    bottom: -30px;
-    opacity: 0;
-  }
-}
-
-@keyframes fadeout {
-  from {
-    bottom: 0px;
-    opacity: 1;
-  }
-  to {
-    bottom: -30px;
-    opacity: 0;
-  }
-}
-
 .filter-btn-selected{
   background-color : rgb(45, 45, 45);
   box-shadow : 0px 0px 4px 2px white;

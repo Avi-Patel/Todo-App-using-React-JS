@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 
-import { TextInput } from "./TextInput";
-import { Button } from "./Button";
+import { TextInput } from "./utilityComponents/TextInput";
+import { Button } from "./utilityComponents/Button";
 
 import { FILTER_ACTIONS } from "../constants";
 
@@ -45,9 +45,12 @@ const SearchBar = React.memo(({ searchValue, onFilterAction }) => {
   );
 });
 
-export const Header = React.memo(({ date, searchValue, onFilterAction }) => (
+const Header = ({ date, searchValue, onFilterAction }) => (
   <div className="header b8 mar4">
     <AppTitleAndDate date={date} />
     <SearchBar searchValue={searchValue} onFilterAction={onFilterAction} />
   </div>
-));
+);
+
+const _Header = React.memo(Header);
+export { _Header as Header };

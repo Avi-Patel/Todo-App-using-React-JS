@@ -1,11 +1,11 @@
 import React from "react";
 
-import { TextInput } from "./TextInput";
-import { Dropdown } from "./Dropdown";
+import { TextInput } from "./utilityComponents/TextInput";
+import { Dropdown } from "./utilityComponents/Dropdown";
 
 import { URGENCIES, CATEGORIES, TODO_FORM_INPUTS } from "../constants";
 
-export const TodoForm = React.memo(({ formData, onFormChange }) => (
+const TodoForm = ({ formData, onFormChange }) => (
   <div className="form">
     <TextInput
       name={TODO_FORM_INPUTS.TITLE.toLocaleLowerCase()}
@@ -30,4 +30,6 @@ export const TodoForm = React.memo(({ formData, onFormChange }) => (
       onChange={onFormChange}
     />
   </div>
-));
+);
+
+export { TodoForm };
