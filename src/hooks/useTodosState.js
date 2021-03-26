@@ -12,7 +12,6 @@ const reducer = (state, action) => {
   let todos;
   switch (action.type) {
     case ACTIONS.ADD:
-      console.log(action.payload.newTodos);
       todos = [...state.todos].concat(action.payload.newTodos);
       return { ...state, todos };
 
@@ -85,7 +84,6 @@ export const useTodosState = () => {
 
       switch (type) {
         case ACTIONS.ADD:
-          console.log(payload.newTodos);
           mockServer
             .createTodoInDatabase(payload.newTodos)
             .then(() => {
