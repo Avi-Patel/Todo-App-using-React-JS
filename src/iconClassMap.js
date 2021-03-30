@@ -12,4 +12,6 @@ export const ICON_CLASS_MAP = {
   [CATEGORIES.SOCIAL]: "fa fa-users cwhite",
   [ACTIONS.EDIT]: "fa fa-pencil cwhite",
   [ACTIONS.DELETE]: "fa fa-trash cwhite",
+  [ACTIONS.ADD]: "fa fa-plus cwhite",
+  CLOSE: "fa fa-times cwhite",
 };

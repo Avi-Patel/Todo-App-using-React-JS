@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from "react";
 
 import { TodoForm } from "./TodoForm";
+import { IconButton } from "./utilityComponents/IconButton";
 
-import { URGENCIES, CATEGORIES, ACTIONS } from "../constants.js";
+import { URGENCIES, CATEGORIES, ACTIONS } from "../constants";
+import { ICON_CLASS_MAP } from "../iconClassMap";
 
 const uuid = () => new Date().valueOf();
 
@@ -21,7 +23,7 @@ const INITIAL_FORM_DATA = {
   category: CATEGORIES.PERSONAL,
 };
 
-const CreateTodoForm = ({ onTodoAction }) => {
+const CreateTodoForm = React.memo(({ onTodoAction }) => {
   // single useState
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
@@ -49,11 +51,13 @@ const CreateTodoForm = ({ onTodoAction }) => {
     <div className="card b12 pad8 top-mar8">
       <div className="create-todo-text mar8">Create Todo</div>
       <TodoForm formData={formData} onFormChange={handleFormChange}></TodoForm>
-      <button className="icon-btn todo-add-btn" onClick={handleSubmit}>
-        <div className="fa fa-plus cwhite"></div>
-      </button>
+      <IconButton
+        btnClass="todo-add-btn"
+        iconClass={ICON_CLASS_MAP[ACTIONS.ADD]}
+        onClick={handleSubmit}
+      />
     </div>
   );
-};
-const _CreateTodoForm = React.memo(CreateTodoForm);
-export { _CreateTodoForm as CreateTodoForm };
+});
+CreateTodoForm.displayName = "CreateTodoForm";
+export { CreateTodoForm };

@@ -27,10 +27,10 @@ const IconGroup = React.memo(({ label, types, filter, onFilterUpdate }) => (
   </div>
 ));
 
-const FilterPanel = ({ appliedFilter, onFilterAction }) => {
+const FilterPanel = React.memo(({ appliedFilter, onFilterAction }) => {
   //Doubt: name
-  const toggleIsInCompleteEnabled = useCallback(
-    () => onFilterAction({ type: FILTER_ACTIONS.TOGGLE_INCOMPLETE_ENABLED }),
+  const toggleShowInCompleted = useCallback(
+    () => onFilterAction({ type: FILTER_ACTIONS.TOGGLE_SHOW_INCOMPLETED }),
     [onFilterAction]
   );
 
@@ -78,12 +78,12 @@ const FilterPanel = ({ appliedFilter, onFilterAction }) => {
       />
       <Checkbox
         label="Not Completed"
-        isChecked={appliedFilter.isIncompleteEnabled}
-        onChange={toggleIsInCompleteEnabled}
+        isChecked={appliedFilter.showInCompleted}
+        onChange={toggleShowInCompleted}
       />
       <div className="normal-bold-text top-bottom-pad8">Filter Todos</div>
     </div>
   );
-};
-const _FilterPanel = React.memo(FilterPanel);
-export { _FilterPanel as FilterPanel };
+});
+FilterPanel.displayName = "FilterPanel";
+export { FilterPanel };

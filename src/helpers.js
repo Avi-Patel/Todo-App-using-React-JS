@@ -13,7 +13,7 @@ export const validateTodoForFilter = (todo, filterData) => {
     filterData.categoryFilter[CATEGORIES.SOCIAL]
   );
 
-  const isChecked = filterData.isIncompleteEnabled;
+  const isChecked = filterData.showInCompleted;
   const isSatifiesSearchValue =
     filterData.searchValue === "" || todo.title.toLowerCase().indexOf(filterData.searchValue) + 1;
 

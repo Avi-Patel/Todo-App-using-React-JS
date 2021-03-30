@@ -4,21 +4,22 @@ import { MODAL_WINDOW_ACTIONS } from "../constants";
 
 //
 export const useModalWindow = () => {
-  const [modalWindow, SetModalWindow] = useState({
+  const [modalWindow, setModalWindow] = useState({
     isOpen: false,
+    data: {},
   });
 
   const onModalWindowAction = useCallback(({ type, payload }) => {
     switch (type) {
       case MODAL_WINDOW_ACTIONS.SHOW:
-        SetModalWindow({
+        setModalWindow({
           isOpen: true,
           data: payload.data,
         });
         break;
 
       case MODAL_WINDOW_ACTIONS.CLOSE:
-        SetModalWindow({ isOpen: false });
+        setModalWindow({ isOpen: false, data: {} });
         break;
 
       default:

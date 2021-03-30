@@ -14,27 +14,27 @@ import { useFilterState } from "../hooks/useFilterState";
 import { useModalWindow } from "../hooks/useModalWindow";
 import { useDate } from "../hooks/useDate";
 
-import { validateTodoForFilter } from "../filterValidationOnTodo";
+import { validateTodoForFilter } from "../helpers";
 
 import "../TodoApp.css";
 
 export const TodoApp = () => {
   const { todosState, onTodoAction } = useTodosState();
-  const { filterState, onFilterAction } = useFilterState();
+  const { filters, onFilterAction } = useFilterState();
   const { modalWindow, onModalWindowAction } = useModalWindow();
   const { date } = useDate();
 
   const filteredTodos = useMemo(
-    () => todosState.todos.filter((todo) => validateTodoForFilter(todo, filterState)),
-    [filterState, todosState]
+    () => todosState.todos.filter((todo) => validateTodoForFilter(todo, filters)),
+    [filters, todosState]
   );
 
   return (
     <>
-      <Header date={date} searchValue={filterState.searchValue} onFilterAction={onFilterAction} />
+      <Header date={date} searchValue={filters.searchValue} onFilterAction={onFilterAction} />
       <div className="todo-app-body mar4">
         <div className="sidebar b8 pad8">
-          <FilterPanel appliedFilter={filterState} onFilterAction={onFilterAction} />
+          <FilterPanel appliedFilter={filters} onFilterAction={onFilterAction} />
           <CreateTodoForm onTodoAction={onTodoAction} />
           <Analytics todos={filteredTodos} />
         </div>
@@ -52,7 +52,7 @@ export const TodoApp = () => {
         onTodoAction={onTodoAction}
       />
       {modalWindow.isOpen && (
-        <ModalWindow>
+        <ModalWindow onModalWindowAction={onModalWindowAction}>
           <EditTodoForm
             todo={modalWindow.data}
             onModalWindowAction={onModalWindowAction}

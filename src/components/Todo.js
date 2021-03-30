@@ -7,7 +7,7 @@ import { ACTIONS, MODAL_WINDOW_ACTIONS } from "../constants";
 import { ICON_CLASS_MAP } from "../iconClassMap";
 
 // Doubt: onModalWindowAction
-const Todo = ({ todo, isSelected, onTodoAction, onModalWindowAction }) => {
+const Todo = React.memo(({ todo, isSelected, onTodoAction, onModalWindowAction }) => {
   // should i define all these  handlers here or they should be defined in TodoList?.
   //Because, for All Todo Components there will be 4 function objects using the memory
   // 100 Todos means 400 function objects.
@@ -68,6 +68,6 @@ const Todo = ({ todo, isSelected, onTodoAction, onModalWindowAction }) => {
       ></button>
     </div>
   );
-};
-const _Todo = React.memo(Todo);
-export { _Todo as Todo };
+});
+Todo.displayName = "Todo";
+export { Todo };
