@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 
 import { IconButton } from "./utilityComponents/IconButton";
-import { Tooltip } from "./utilityComponents/ToolTip";
+import { Tooltip } from "./utilityComponents/Tooltip";
 
 import { BULK_ACTIONS, ACTIONS } from "../constants";
 import { ICON_CLASS_MAP } from "../iconClassMap";
