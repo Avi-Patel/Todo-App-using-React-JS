@@ -33,12 +33,12 @@ export const TodoApp = () => {
     <>
       <Header date={date} searchValue={filters.searchValue} onFilterAction={onFilterAction} />
       <div className="todo-app-body mar4">
-        <div className="sidebar b8 pad8">
+        <div className="todo-app-body__sidebar b8 pad8">
           <FilterPanel appliedFilter={filters} onFilterAction={onFilterAction} />
           <CreateTodoForm onTodoAction={onTodoAction} />
           <Analytics todos={filteredTodos} />
         </div>
-        <div className="todo-panel b8">
+        <div className="todo-app-body__todo-panel b8">
           <TodoList
             todos={filteredTodos}
             currentlySelectedIds={todosState.currentlySelectedIds}

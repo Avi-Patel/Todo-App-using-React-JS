@@ -14,7 +14,7 @@ const Tooltip = ({ children, title }) => {
       onMouseOut={handleHoverOut}
     >
       {children}
-      {show && <div className="hidden-label">{title}</div>}
+      {show && <div className="tooltip-title">{title}</div>}
     </div>
   );
 };

@@ -19,16 +19,19 @@ const reducer = (state, action) => {
       todos = [...state.todos];
       action.payload.updatedTodos.forEach((updatedTodo) => {
         index = findIndexById(todos, updatedTodo.id);
-        todos = todos.slice(0, index).concat(updatedTodo, todos.slice(index + 1));
+        todos[index] = updatedTodo;
+        // todos = todos.slice(0, index).concat(updatedTodo, todos.slice(index + 1));
       });
       return { ...state, todos };
 
     case ACTIONS.DELETE:
-      todos = [...state.todos];
-      action.payload.ids.forEach((id) => {
-        index = findIndexById(todos, id);
-        todos = todos.slice(0, index).concat(todos.slice(index + 1));
-      });
+      // todos = [...state.todos];
+      // action.payload.ids.forEach((id) => {
+      //   index = findIndexById(todos, id);
+      //   todos = todos.slice(0, index).concat(todos.slice(index + 1));
+      // });
+
+      todos = state.todos.filter((todo) => !action.payload.ids.includes(todo.id));
       return { ...state, todos };
 
     case ACTIONS.TOGGLE_FROM_SELECTED:
@@ -39,12 +42,23 @@ const reducer = (state, action) => {
           currentlySelectedIds: state.currentlySelectedIds.concat(action.payload.id),
         };
       } else {
+        const newIds = state.currentlySelectedIds.slice(0, index);
+        newIds.push(...state.currentlySelectedIds.slice(index + 1));
+
+        // const newIds = [...state.currentlySelectedIds];
+        // newIds.splice(index);
+
         return {
           ...state,
-          currentlySelectedIds: state.currentlySelectedIds
-            .slice(0, index)
-            .concat(state.currentlySelectedIds.slice(index + 1)),
+          currentlySelectedIds: newIds,
         };
+
+        // return {
+        //   ...state,
+        //   currentlySelectedIds: state.currentlySelectedIds
+        //     .slice(0, index)
+        //     .concat(state.currentlySelectedIds.slice(index + 1)),
+        // };
       }
     case ACTIONS.RESET_SELECTED_IDS:
       return { ...state, currentlySelectedIds: [] };
@@ -124,7 +138,7 @@ export const useTodosState = () => {
                 type: ACTIONS.DELETE,
                 payload: { ids: Array.isArray(ids) ? ids : [ids] },
               });
-              if (Array.isArray(ids)) {
+              if (Array.isArray(payload.ids)) {
                 dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
               }
             })
@@ -146,7 +160,9 @@ export const useTodosState = () => {
                   updatedTodos: updatedTodos,
                 },
               });
-              dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
+              if (Array.isArray(payload.ids)) {
+                dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
+              }
             })
             .catch(showSnackbar);
           break;

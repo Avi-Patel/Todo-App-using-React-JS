@@ -11,7 +11,7 @@ const IconGroup = React.memo(({ label, types, filter, onFilterUpdate }) => (
     <div className="normal-bold-text right-left-pad8">{label}</div>
     <div className="filter-btns">
       {Object.entries(types).map(([key, value]) => {
-        const className = `icon-btn ${filter[value] ? "filter-btn-selected" : ""}`;
+        const className = `right-left-mar8 ${filter[value] ? "filter-btn-selected" : ""}`;
 
         return (
           <IconButton

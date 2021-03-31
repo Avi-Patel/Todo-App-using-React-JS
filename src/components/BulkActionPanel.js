@@ -26,24 +26,24 @@ const BulkActionPanel = React.memo(({ currentlySelectedIds, onTodoAction }) => {
   );
 
   return (
-    <div className="selection-btns fixed">
+    <div className="bulk-action-btns bulk-actions-position">
       <Tooltip title={BULK_ACTIONS.TOGGLE_COMPLETION}>
         <IconButton
-          btnClass="bg-light expand"
+          btnClass="right-left-mar8 bg-light"
           iconClass={ICON_CLASS_MAP[BULK_ACTIONS.TOGGLE_COMPLETION]}
           onClick={handleBulkCompletionToggle}
         />
       </Tooltip>
       <Tooltip title={BULK_ACTIONS.CLEAR_SELECTION}>
         <IconButton
-          btnClass="bg-light expand"
+          btnClass="right-left-mar8 bg-light"
           iconClass={ICON_CLASS_MAP[BULK_ACTIONS.CLEAR_SELECTION]}
           onClick={handleClearSelection}
         />
       </Tooltip>
       <Tooltip title={BULK_ACTIONS.DELETE}>
         <IconButton
-          btnClass="bg-light expand"
+          btnClass="right-left-mar8 bg-light"
           iconClass={ICON_CLASS_MAP[BULK_ACTIONS.DELETE]}
           onClick={handleBulkDelete}
         />

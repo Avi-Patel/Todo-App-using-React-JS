@@ -10,8 +10,8 @@ const EditTodoForm = React.memo(({ todo, onModalWindowAction, onTodoAction }) =>
 
   const handleTodoDataChange = useCallback(
     (event) =>
-      setTodoData((prevFormData) => ({
-        ...prevFormData,
+      setTodoData((prevTodoData) => ({
+        ...prevTodoData,
         [event.target.dataset.name]: event.target.value,
       })),
     []

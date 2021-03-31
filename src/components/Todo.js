@@ -6,7 +6,6 @@ import { IconButton } from "./utilityComponents/IconButton";
 import { ACTIONS, MODAL_WINDOW_ACTIONS } from "../constants";
 import { ICON_CLASS_MAP } from "../iconClassMap";
 
-// Doubt: onModalWindowAction
 const Todo = React.memo(({ todo, isSelected, onTodoAction, onModalWindowAction }) => {
   // should i define all these  handlers here or they should be defined in TodoList?.
   //Because, for All Todo Components there will be 4 function objects using the memory

@@ -8,12 +8,12 @@ import { ICON_CLASS_MAP } from "../iconClassMap";
 
 const uuid = () => new Date().valueOf();
 
-const createTodoObject = (data) => ({
+const createTodoObject = ({ title, urgency = URGENCIES.LOW, category = CATEGORIES.PERSONAL }) => ({
   id: uuid(),
   date: new Date().toLocaleString(),
-  title: data.title || "",
-  urgency: data.urgency || URGENCIES.LOW,
-  category: data.category || CATEGORIES.PERSONAL,
+  title: title,
+  urgency: urgency,
+  category: category,
   completed: false,
 });
 
@@ -49,10 +49,10 @@ const CreateTodoForm = React.memo(({ onTodoAction }) => {
 
   return (
     <div className="card b12 pad8 top-mar8">
-      <div className="create-todo-text mar8">Create Todo</div>
+      <div className="create-todo-text">Create Todo</div>
       <TodoForm formData={formData} onFormChange={handleFormChange}></TodoForm>
       <IconButton
-        btnClass="todo-add-btn"
+        btnClass="todo-add-btn mar8"
         iconClass={ICON_CLASS_MAP[ACTIONS.ADD]}
         onClick={handleSubmit}
       />

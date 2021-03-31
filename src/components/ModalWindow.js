@@ -9,7 +9,7 @@ export const ModalWindow = ({ children, onModalWindowAction }) => {
   return (
     <div className="modal">
       <div className="modal__modal-content b12 pad12">
-        <div className="modal-close-btn" onClick={closeModal}>
+        <div className="modal__modal-content__close-btn" onClick={closeModal}>
           <i className={ICON_CLASS_MAP.CLOSE}></i>
         </div>
         {children}
