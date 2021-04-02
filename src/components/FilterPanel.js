@@ -26,6 +26,7 @@ const IconGroup = React.memo(({ label, types, filter, onFilterUpdate }) => (
     </div>
   </div>
 ));
+IconGroup.displayName = "IconGroup";
 
 const FilterPanel = React.memo(({ appliedFilter, onFilterAction }) => {
   //Doubt: name

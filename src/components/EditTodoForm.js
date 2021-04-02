@@ -27,7 +27,7 @@ const EditTodoForm = React.memo(({ todo, onModalWindowAction, onTodoAction }) =>
 
   return (
     <>
-      <div className="cwhite normal-bold-text top-bottom-mar8">Update Your Todo</div>
+      <div className="normal-bold-text top-bottom-mar8">Update Your Todo</div>
       <TodoForm formData={todoData} onFormChange={handleTodoDataChange} />
       <Button label="Update" onClick={handleUpdate} />
     </>

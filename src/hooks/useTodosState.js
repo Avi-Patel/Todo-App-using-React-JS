@@ -12,7 +12,8 @@ const reducer = (state, action) => {
   let todos;
   switch (action.type) {
     case ACTIONS.ADD:
-      todos = [...state.todos].concat(action.payload.newTodos);
+      todos = [...state.todos, ...action.payload.newTodos];
+      // todos = [...state.todos].concat(action.payload.newTodos);
       return { ...state, todos };
 
     case ACTIONS.UPDATE:
@@ -42,11 +43,15 @@ const reducer = (state, action) => {
           currentlySelectedIds: state.currentlySelectedIds.concat(action.payload.id),
         };
       } else {
-        const newIds = state.currentlySelectedIds.slice(0, index);
-        newIds.push(...state.currentlySelectedIds.slice(index + 1));
+        const newIds = state.currentlySelectedIds.filter((id) => id !== action.payload.id);
 
         // const newIds = [...state.currentlySelectedIds];
         // newIds.splice(index);
+
+        // const newIds = [
+        //   ...state.currentlySelectedIds.slice(0, index),
+        //   ...state.currentlySelectedIds.slice(index + 1),
+        // ];
 
         return {
           ...state,

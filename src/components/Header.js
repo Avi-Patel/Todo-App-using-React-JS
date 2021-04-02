@@ -6,7 +6,7 @@ import { Button } from "./utilityComponents/Button";
 import { FILTER_ACTIONS } from "../constants";
 
 const HeaderTitleAndDate = React.memo(({ date }) => (
-  <div className="header__left b8">
+  <div className="header__left">
     <div className="header__left__name">Todo App</div>
     <div className="header__left__date">{date}</div>
   </div>
@@ -48,7 +48,7 @@ const SearchBar = React.memo(({ searchValue, onFilterAction }) => {
 SearchBar.displayName = "SearchBar";
 
 const Header = React.memo(({ date, searchValue, onFilterAction }) => (
-  <div className="header b8 mar4">
+  <div className="header">
     <HeaderTitleAndDate date={date} />
     <SearchBar searchValue={searchValue} onFilterAction={onFilterAction} />
   </div>
