@@ -18,6 +18,30 @@ import { validateTodoForFilter } from "../helpers";
 
 import "../TodoApp.css";
 
+const TodoAppBody = ({ todos, currentlySelectedIds, filters, onAction }) => (
+  <>
+    <div className="todo-app-body mar4">
+      <div className="todo-app-body__sidebar b8 pad8">
+        <FilterPanel appliedFilter={filters} onFilterAction={onAction.onFilterAction} />
+        <CreateTodoForm onTodoAction={onAction.onTodoAction} />
+        <Analytics todos={todos} />
+      </div>
+      <div className="todo-app-body__todo-panel b8">
+        <TodoList
+          todos={todos}
+          currentlySelectedIds={currentlySelectedIds}
+          onTodoAction={onAction.onTodoAction}
+          onModalWindowAction={onAction.onModalWindowAction}
+        />
+      </div>
+    </div>
+    <BulkActionPanel
+      currentlySelectedIds={currentlySelectedIds}
+      onTodoAction={onAction.onTodoAction}
+    />
+  </>
+);
+
 export const TodoApp = () => {
   const { todosState, onTodoAction } = useTodosState();
   const { filters, onFilterAction } = useFilterState();
@@ -28,28 +52,23 @@ export const TodoApp = () => {
     () => todosState.todos.filter((todo) => validateTodoForFilter(todo, filters)),
     [filters, todosState]
   );
+  const onAction = useMemo(
+    () => ({
+      onTodoAction,
+      onFilterAction,
+      onModalWindowAction,
+    }),
+    [onTodoAction, onFilterAction, onModalWindowAction]
+  );
 
   return (
     <>
       <Header date={date} searchValue={filters.searchValue} onFilterAction={onFilterAction} />
-      <div className="todo-app-body mar4">
-        <div className="todo-app-body__sidebar b8 pad8">
-          <FilterPanel appliedFilter={filters} onFilterAction={onFilterAction} />
-          <CreateTodoForm onTodoAction={onTodoAction} />
-          <Analytics todos={filteredTodos} />
-        </div>
-        <div className="todo-app-body__todo-panel b8">
-          <TodoList
-            todos={filteredTodos}
-            currentlySelectedIds={todosState.currentlySelectedIds}
-            onTodoAction={onTodoAction}
-            onModalWindowAction={onModalWindowAction}
-          />
-        </div>
-      </div>
-      <BulkActionPanel
+      <TodoAppBody
+        todos={filteredTodos}
         currentlySelectedIds={todosState.currentlySelectedIds}
-        onTodoAction={onTodoAction}
+        filters={filters}
+        onAction={onAction}
       />
       {modalWindow.isOpen && (
         <ModalWindow onModalWindowAction={onModalWindowAction}>

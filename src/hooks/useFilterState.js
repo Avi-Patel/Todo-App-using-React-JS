@@ -6,7 +6,7 @@ import { FILTER_ACTIONS } from "../constants";
 const INITIAL_FILTERS = {
   urgencyFilter: {},
   categoryFilter: {},
-  showInCompleted: false,
+  showInComplete: false,
   searchValue: "",
 };
 
@@ -32,8 +32,8 @@ export const useFilterState = () => {
           setFilters({ ...filters, categoryFilter: updatedCategoryFilter });
           break;
 
-        case FILTER_ACTIONS.TOGGLE_SHOW_INCOMPLETED:
-          setFilters({ ...filters, showInCompleted: !filters.showInCompleted });
+        case FILTER_ACTIONS.TOGGLE_SHOW_INCOMPLETE:
+          setFilters({ ...filters, showInComplete: !filters.showInComplete });
           break;
 
         case FILTER_ACTIONS.UPDATE_SEARCH_VALUE:

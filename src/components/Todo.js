@@ -32,29 +32,31 @@ const Todo = React.memo(({ todo, isSelected, onTodoAction, onModalWindowAction }
 
   return (
     <div
-      className={`todo mar8 pad8 b12 ${todo.completed ? "reduced-opacity" : "original-opacity"}`}
+      className={`todo cwhite mar8 pad8 b12 ${
+        todo.completed ? "reduced-opacity" : "original-opacity"
+      }`}
     >
       <div className="todo__topbar-btns">
         <IconButton
           btnClass="todo__topbar-btns__extra-style alter-visibility"
-          iconClass={ICON_CLASS_MAP[ACTIONS.EDIT]}
+          iconClass={`${ICON_CLASS_MAP[ACTIONS.EDIT]} cwhite`}
           onClick={handleEditTodo}
         />
         <IconButton
           btnClass="todo__topbar-btns__extra-style alter-visibility"
-          iconClass={ICON_CLASS_MAP[ACTIONS.DELETE]}
+          iconClass={`${ICON_CLASS_MAP[ACTIONS.DELETE]} cwhite`}
           onClick={handleDeleteTodo}
         />
       </div>
       <div className="normal-bold-text align-center mar10" style={{ fontSize: "18px" }}>
         {todo.title}
       </div>
-      <div className="normal-text align-center mar10" style={{ fontSize: "14px" }}>
+      <div className="align-center mar10" style={{ fontSize: "14px" }}>
         {todo.date}
       </div>
       <div className="align-center mar10">
-        <i className={` ${ICON_CLASS_MAP[todo.urgency]} todo__preferences-icon mar8`}></i>
-        <i className={` ${ICON_CLASS_MAP[todo.category]} todo__preferences-icon mar8`}></i>
+        <i className={`${ICON_CLASS_MAP[todo.urgency]} todo__preferences-icon mar8`}></i>
+        <i className={`${ICON_CLASS_MAP[todo.category]} cwhite todo__preferences-icon mar8`}></i>
       </div>
       <Button
         label={`${todo.completed ? "Completed Undo?" : "Mark Completed"}`}

@@ -53,7 +53,7 @@ const CreateTodoForm = React.memo(({ onTodoAction }) => {
       <TodoForm formData={formData} onFormChange={handleFormChange}></TodoForm>
       <IconButton
         btnClass="todo-add-btn mar8"
-        iconClass={ICON_CLASS_MAP[ACTIONS.ADD]}
+        iconClass={`${ICON_CLASS_MAP[ACTIONS.ADD]} cwhite`}
         onClick={handleSubmit}
       />
     </div>
