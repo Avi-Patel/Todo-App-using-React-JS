@@ -30,21 +30,21 @@ const BulkActionPanel = React.memo(({ currentlySelectedIds, onTodoAction }) => {
       <Tooltip title={BULK_ACTIONS.TOGGLE_COMPLETION}>
         <IconButton
           btnClass="right-left-mar8 bg-light"
-          iconClass={ICON_CLASS_MAP[BULK_ACTIONS.TOGGLE_COMPLETION]}
+          iconClass={`${ICON_CLASS_MAP[BULK_ACTIONS.TOGGLE_COMPLETION]} cblack`}
           onClick={handleBulkCompletionToggle}
         />
       </Tooltip>
       <Tooltip title={BULK_ACTIONS.CLEAR_SELECTION}>
         <IconButton
           btnClass="right-left-mar8 bg-light"
-          iconClass={ICON_CLASS_MAP[BULK_ACTIONS.CLEAR_SELECTION]}
+          iconClass={`${ICON_CLASS_MAP[BULK_ACTIONS.CLEAR_SELECTION]} cblack`}
           onClick={handleClearSelection}
         />
       </Tooltip>
       <Tooltip title={BULK_ACTIONS.DELETE}>
         <IconButton
           btnClass="right-left-mar8 bg-light"
-          iconClass={ICON_CLASS_MAP[BULK_ACTIONS.DELETE]}
+          iconClass={`${ICON_CLASS_MAP[BULK_ACTIONS.DELETE]} cblack`}
           onClick={handleBulkDelete}
         />
       </Tooltip>

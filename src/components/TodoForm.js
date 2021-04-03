@@ -14,7 +14,7 @@ const TodoForm = ({ formData, onFormChange }) => (
       onChange={onFormChange}
     />
 
-    <div className="normal-bold-text mar8">{TODO_FORM_INPUTS.URGENCY}</div>
+    <div className="normal-bold-text cwhite mar8">{TODO_FORM_INPUTS.URGENCY}</div>
     <Dropdown
       name={TODO_FORM_INPUTS.URGENCY.toLocaleLowerCase()}
       initialValue={formData.urgency}
@@ -22,7 +22,7 @@ const TodoForm = ({ formData, onFormChange }) => (
       onChange={onFormChange}
     />
 
-    <div className="normal-bold-text mar8">{TODO_FORM_INPUTS.CATEGORY}</div>
+    <div className="normal-bold-text cwhite mar8">{TODO_FORM_INPUTS.CATEGORY}</div>
     <Dropdown
       name={TODO_FORM_INPUTS.CATEGORY.toLocaleLowerCase()}
       initialValue={formData.category}

@@ -8,62 +8,35 @@ import { ACTIONS } from "../constants";
 const findIndexById = (todos, id) => todos.findIndex((todo) => todo.id === id);
 
 const reducer = (state, action) => {
-  let index;
-  let todos;
   switch (action.type) {
     case ACTIONS.ADD:
-      todos = [...state.todos, ...action.payload.newTodos];
-      // todos = [...state.todos].concat(action.payload.newTodos);
-      return { ...state, todos };
+      return { ...state, todos: state.todos.concat(action.payload.newTodos) };
 
     case ACTIONS.UPDATE:
-      todos = [...state.todos];
+      const todos = [...state.todos];
       action.payload.updatedTodos.forEach((updatedTodo) => {
-        index = findIndexById(todos, updatedTodo.id);
-        todos[index] = updatedTodo;
-        // todos = todos.slice(0, index).concat(updatedTodo, todos.slice(index + 1));
+        const indexInTodos = findIndexById(todos, updatedTodo.id);
+        todos[indexInTodos] = updatedTodo;
       });
       return { ...state, todos };
 
     case ACTIONS.DELETE:
-      // todos = [...state.todos];
-      // action.payload.ids.forEach((id) => {
-      //   index = findIndexById(todos, id);
-      //   todos = todos.slice(0, index).concat(todos.slice(index + 1));
-      // });
-
-      todos = state.todos.filter((todo) => !action.payload.ids.includes(todo.id));
-      return { ...state, todos };
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => !action.payload.ids.includes(todo.id)),
+      };
 
     case ACTIONS.TOGGLE_FROM_SELECTED:
-      index = state.currentlySelectedIds.indexOf(action.payload.id);
-      if (index === -1) {
+      if (state.currentlySelectedIds.includes(action.payload.id)) {
+        return {
+          ...state,
+          currentlySelectedIds: state.currentlySelectedIds.filter((id) => id !== action.payload.id),
+        };
+      } else {
         return {
           ...state,
           currentlySelectedIds: state.currentlySelectedIds.concat(action.payload.id),
         };
-      } else {
-        const newIds = state.currentlySelectedIds.filter((id) => id !== action.payload.id);
-
-        // const newIds = [...state.currentlySelectedIds];
-        // newIds.splice(index);
-
-        // const newIds = [
-        //   ...state.currentlySelectedIds.slice(0, index),
-        //   ...state.currentlySelectedIds.slice(index + 1),
-        // ];
-
-        return {
-          ...state,
-          currentlySelectedIds: newIds,
-        };
-
-        // return {
-        //   ...state,
-        //   currentlySelectedIds: state.currentlySelectedIds
-        //     .slice(0, index)
-        //     .concat(state.currentlySelectedIds.slice(index + 1)),
-        // };
       }
     case ACTIONS.RESET_SELECTED_IDS:
       return { ...state, currentlySelectedIds: [] };
@@ -113,7 +86,7 @@ export const useTodosState = () => {
                 },
               });
             })
-            .catch(showSnackbar);
+            .catch(showSnackbarRef.current);
           break;
 
         case ACTIONS.UPDATE:
@@ -131,7 +104,7 @@ export const useTodosState = () => {
                 dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
               }
             })
-            .catch(showSnackbar);
+            .catch(showSnackbarRef.current);
           break;
 
         case ACTIONS.DELETE:
@@ -147,7 +120,7 @@ export const useTodosState = () => {
                 dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
               }
             })
-            .catch(showSnackbar);
+            .catch(showSnackbarRef.current);
           break;
 
         case ACTIONS.TOGGLE_COMPLETION:
@@ -169,7 +142,7 @@ export const useTodosState = () => {
                 dispatch({ type: ACTIONS.RESET_SELECTED_IDS });
               }
             })
-            .catch(showSnackbar);
+            .catch(showSnackbarRef.current);
           break;
 
         case ACTIONS.TOGGLE_FROM_SELECTED:
@@ -182,7 +155,7 @@ export const useTodosState = () => {
           break;
       }
     },
-    [showSnackbar, todosState]
+    [todosState]
   );
 
   return { todosState, onTodoAction };

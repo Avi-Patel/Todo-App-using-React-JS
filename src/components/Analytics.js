@@ -14,7 +14,7 @@ const Analytics = ({ todos }) => {
           {completedTodos} / {totalTodos}
         </div>
       </div>
-      <div className="normal-bold-text top-bottom-mar8">Analytics</div>
+      <div className="normal-bold-text cwhite top-bottom-mar8">Analytics</div>
     </div>
   );
 };
