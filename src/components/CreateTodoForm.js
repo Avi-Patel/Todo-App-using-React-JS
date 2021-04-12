@@ -1,17 +1,19 @@
 import React, { useCallback, useState } from "react";
 
 import { TodoForm } from "./TodoForm";
+import { IconButton } from "./utilityComponents/IconButton";
 
-import { URGENCIES, CATEGORIES, ACTIONS } from "../constants.js";
+import { URGENCIES, CATEGORIES, ACTIONS } from "../constants";
+import { ICON_CLASS_MAP } from "../iconClassMap";
 
 const uuid = () => new Date().valueOf();
 
-const createTodoObject = (data) => ({
+const createTodoObject = ({ title, urgency = URGENCIES.LOW, category = CATEGORIES.PERSONAL }) => ({
   id: uuid(),
   date: new Date().toLocaleString(),
-  title: data.title || "",
-  urgency: data.urgency || URGENCIES.LOW,
-  category: data.category || CATEGORIES.PERSONAL,
+  title: title,
+  urgency: urgency,
+  category: category,
   completed: false,
 });
 
@@ -21,7 +23,7 @@ const INITIAL_FORM_DATA = {
   category: CATEGORIES.PERSONAL,
 };
 
-const CreateTodoForm = ({ onTodoAction }) => {
+const CreateTodoForm = React.memo(({ onTodoAction }) => {
   // single useState
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
@@ -47,13 +49,15 @@ const CreateTodoForm = ({ onTodoAction }) => {
 
   return (
     <div className="card b12 pad8 top-mar8">
-      <div className="create-todo-text mar8">Create Todo</div>
+      <div className="create-todo-text">Create Todo</div>
       <TodoForm formData={formData} onFormChange={handleFormChange}></TodoForm>
-      <button className="icon-btn todo-add-btn" onClick={handleSubmit}>
-        <div className="fa fa-plus cwhite"></div>
-      </button>
+      <IconButton
+        btnClass="todo-add-btn mar8"
+        iconClass={`${ICON_CLASS_MAP[ACTIONS.ADD]} cwhite`}
+        onClick={handleSubmit}
+      />
     </div>
   );
-};
-const _CreateTodoForm = React.memo(CreateTodoForm);
-export { _CreateTodoForm as CreateTodoForm };
+});
+CreateTodoForm.displayName = "CreateTodoForm";
+export { CreateTodoForm };

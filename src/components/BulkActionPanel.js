@@ -1,12 +1,12 @@
 import React, { useCallback } from "react";
 
 import { IconButton } from "./utilityComponents/IconButton";
-import { WithToolTip } from "./utilityComponents/WithToolTip";
+import { Tooltip } from "./utilityComponents/Tooltip";
 
 import { BULK_ACTIONS, ACTIONS } from "../constants";
 import { ICON_CLASS_MAP } from "../iconClassMap";
 
-const BulkActionPanel = ({ currentlySelectedIds, onTodoAction }) => {
+const BulkActionPanel = React.memo(({ currentlySelectedIds, onTodoAction }) => {
   const handleBulkCompletionToggle = useCallback(() => {
     onTodoAction({ type: ACTIONS.TOGGLE_COMPLETION, payload: { ids: currentlySelectedIds } });
   }, [currentlySelectedIds, onTodoAction]);
@@ -26,30 +26,30 @@ const BulkActionPanel = ({ currentlySelectedIds, onTodoAction }) => {
   );
 
   return (
-    <div className="selection-btns fixed">
-      <WithToolTip title={BULK_ACTIONS.TOGGLE_COMPLETION}>
+    <div className="bulk-action-btns bulk-actions-position">
+      <Tooltip title={BULK_ACTIONS.TOGGLE_COMPLETION}>
         <IconButton
-          btnClass="bg-light expand"
-          iconClass={ICON_CLASS_MAP[BULK_ACTIONS.TOGGLE_COMPLETION]}
+          btnClass="right-left-mar8 bg-light"
+          iconClass={`${ICON_CLASS_MAP[BULK_ACTIONS.TOGGLE_COMPLETION]} cblack`}
           onClick={handleBulkCompletionToggle}
         />
-      </WithToolTip>
-      <WithToolTip title={BULK_ACTIONS.CLEAR_SELECTION}>
+      </Tooltip>
+      <Tooltip title={BULK_ACTIONS.CLEAR_SELECTION}>
         <IconButton
-          btnClass="bg-light expand"
-          iconClass={ICON_CLASS_MAP[BULK_ACTIONS.CLEAR_SELECTION]}
+          btnClass="right-left-mar8 bg-light"
+          iconClass={`${ICON_CLASS_MAP[BULK_ACTIONS.CLEAR_SELECTION]} cblack`}
           onClick={handleClearSelection}
         />
-      </WithToolTip>
-      <WithToolTip title={BULK_ACTIONS.DELETE}>
+      </Tooltip>
+      <Tooltip title={BULK_ACTIONS.DELETE}>
         <IconButton
-          btnClass="bg-light expand"
-          iconClass={ICON_CLASS_MAP[BULK_ACTIONS.DELETE]}
+          btnClass="right-left-mar8 bg-light"
+          iconClass={`${ICON_CLASS_MAP[BULK_ACTIONS.DELETE]} cblack`}
           onClick={handleBulkDelete}
         />
-      </WithToolTip>
+      </Tooltip>
     </div>
   );
-};
-const _BulkActionPanel = React.memo(BulkActionPanel);
-export { _BulkActionPanel as BulkActionPanel };
+});
+BulkActionPanel.displayName = "BulkActionPanel";
+export { BulkActionPanel };

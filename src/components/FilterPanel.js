@@ -8,17 +8,17 @@ import { ICON_CLASS_MAP } from "../iconClassMap";
 
 const IconGroup = React.memo(({ label, types, filter, onFilterUpdate }) => (
   <div className="filter-row top-bottom-pad8">
-    <div className="normal-bold-text right-left-pad8">{label}</div>
+    <div className="normal-bold-text cwhite pad8">{label}</div>
     <div className="filter-btns">
       {Object.entries(types).map(([key, value]) => {
-        const className = `icon-btn ${filter[value] ? "filter-btn-selected" : ""}`;
-
+        const btnClass = `right-left-mar8 ${filter[value] ? "filter-btn-selected" : ""}`;
+        const iconClass = `${label === "Category" ? "cwhite" : ""}`;
         return (
           <IconButton
             key={key}
-            btnClass={className}
+            btnClass={btnClass}
             dataType={value}
-            iconClass={ICON_CLASS_MAP[value]}
+            iconClass={`${ICON_CLASS_MAP[value]} ${iconClass}`}
             onClick={onFilterUpdate}
           />
         );
@@ -26,11 +26,12 @@ const IconGroup = React.memo(({ label, types, filter, onFilterUpdate }) => (
     </div>
   </div>
 ));
+IconGroup.displayName = "IconGroup";
 
-const FilterPanel = ({ appliedFilter, onFilterAction }) => {
+const FilterPanel = React.memo(({ appliedFilter, onFilterAction }) => {
   //Doubt: name
-  const toggleIsInCompleteEnabled = useCallback(
-    () => onFilterAction({ type: FILTER_ACTIONS.TOGGLE_INCOMPLETE_ENABLED }),
+  const toggleShowInComplete = useCallback(
+    () => onFilterAction({ type: FILTER_ACTIONS.TOGGLE_SHOW_INCOMPLETE }),
     [onFilterAction]
   );
 
@@ -77,13 +78,14 @@ const FilterPanel = ({ appliedFilter, onFilterAction }) => {
         onFilterUpdate={updateCategoryFilter}
       />
       <Checkbox
-        label="Not Completed"
-        isChecked={appliedFilter.isIncompleteEnabled}
-        onChange={toggleIsInCompleteEnabled}
+        label="Incomplete Todos"
+        labelColorClass="cwhite"
+        isChecked={appliedFilter.showInComplete}
+        onChange={toggleShowInComplete}
       />
-      <div className="normal-bold-text top-bottom-pad8">Filter Todos</div>
+      <div className="normal-bold-text cwhite top-bottom-pad8">Filter Todos</div>
     </div>
   );
-};
-const _FilterPanel = React.memo(FilterPanel);
-export { _FilterPanel as FilterPanel };
+});
+FilterPanel.displayName = "FilterPanel";
+export { FilterPanel };

@@ -1,43 +1,51 @@
-import { useReducer } from "react";
+import { useState, useCallback } from "react";
+import {} from "react/cjs/react.development";
 
 import { FILTER_ACTIONS } from "../constants";
 
-const INITIAL_FILTER_STATE = {
+const INITIAL_FILTERS = {
   urgencyFilter: {},
   categoryFilter: {},
-  //
-  isIncompleteEnabled: false,
+  showInComplete: false,
   searchValue: "",
 };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case FILTER_ACTIONS.UPDATE_URGENCY_FILTER:
-      const updatedUrgencyFilter = {
-        ...state.urgencyFilter,
-        [action.payload.type]: !state.urgencyFilter[action.payload.type],
-      };
-      return { ...state, urgencyFilter: updatedUrgencyFilter };
-
-    case FILTER_ACTIONS.UPDATE_CATEGORY_FILTER:
-      const updatedCategoryFilter = {
-        ...state.categoryFilter,
-        [action.payload.type]: !state.categoryFilter[action.payload.type],
-      };
-      return { ...state, categoryFilter: updatedCategoryFilter };
-
-    case FILTER_ACTIONS.TOGGLE_INCOMPLETE_ENABLED:
-      return { ...state, isIncompleteEnabled: !state.isIncompleteEnabled };
-
-    case FILTER_ACTIONS.UPDATE_SEARCH_VALUE:
-      return { ...state, searchValue: action.payload.newSearchValue };
-    default:
-      return state;
-  }
-};
-
 export const useFilterState = () => {
-  const [filterState, onFilterAction] = useReducer(reducer, INITIAL_FILTER_STATE);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
 
-  return { filterState, onFilterAction };
+  const onFilterAction = useCallback(
+    ({ type, payload }) => {
+      switch (type) {
+        case FILTER_ACTIONS.UPDATE_URGENCY_FILTER:
+          const updatedUrgencyFilter = {
+            ...filters.urgencyFilter,
+            [payload.type]: !filters.urgencyFilter[payload.type],
+          };
+          setFilters({ ...filters, urgencyFilter: updatedUrgencyFilter });
+          break;
+
+        case FILTER_ACTIONS.UPDATE_CATEGORY_FILTER:
+          const updatedCategoryFilter = {
+            ...filters.categoryFilter,
+            [payload.type]: !filters.categoryFilter[payload.type],
+          };
+          setFilters({ ...filters, categoryFilter: updatedCategoryFilter });
+          break;
+
+        case FILTER_ACTIONS.TOGGLE_SHOW_INCOMPLETE:
+          setFilters({ ...filters, showInComplete: !filters.showInComplete });
+          break;
+
+        case FILTER_ACTIONS.UPDATE_SEARCH_VALUE:
+          setFilters({ ...filters, searchValue: payload.newSearchValue });
+          break;
+
+        default:
+          break;
+      }
+    },
+    [filters]
+  );
+
+  return { filters, onFilterAction };
 };

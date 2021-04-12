@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 
-const WithToolTip = ({ children, title }) => {
+const Tooltip = ({ children, title }) => {
   const [show, setShow] = useState(false);
 
   const handleOnHover = useCallback(() => setShow(true), []);
@@ -14,8 +14,8 @@ const WithToolTip = ({ children, title }) => {
       onMouseOut={handleHoverOut}
     >
       {children}
-      {show && <div className="hidden-label">{title}</div>}
+      {show && <div className="tooltip-title">{title}</div>}
     </div>
   );
 };
-export { WithToolTip };
+export { Tooltip };

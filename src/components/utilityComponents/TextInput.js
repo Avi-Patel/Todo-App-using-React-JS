@@ -1,6 +1,6 @@
 import React from "react";
 
-const TextInput = ({ value, onChange, placeholder, name, extraClasses }) => (
+const TextInput = React.memo(({ value, onChange, placeholder, name, extraClasses }) => (
   <input
     type="text"
     data-name={name}
@@ -9,7 +9,6 @@ const TextInput = ({ value, onChange, placeholder, name, extraClasses }) => (
     placeholder={placeholder}
     onChange={onChange}
   />
-);
-
-const _TextInput = React.memo(TextInput);
-export { _TextInput as TextInput };
+));
+TextInput.displayName = "Text Input";
+export { TextInput };

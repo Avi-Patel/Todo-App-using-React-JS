@@ -5,12 +5,13 @@ import { Button } from "./utilityComponents/Button";
 
 import { FILTER_ACTIONS } from "../constants";
 
-const AppTitleAndDate = React.memo(({ date }) => (
-  <div className="header__left b8">
+const HeaderTitleAndDate = React.memo(({ date }) => (
+  <div className="header__left">
     <div className="header__left__name">Todo App</div>
     <div className="header__left__date">{date}</div>
   </div>
 ));
+HeaderTitleAndDate.displayName = "TitleAndDate";
 
 const SearchBar = React.memo(({ searchValue, onFilterAction }) => {
   const handleSearchChange = useCallback(
@@ -44,13 +45,14 @@ const SearchBar = React.memo(({ searchValue, onFilterAction }) => {
     </div>
   );
 });
+SearchBar.displayName = "SearchBar";
 
-const Header = ({ date, searchValue, onFilterAction }) => (
-  <div className="header b8 mar4">
-    <AppTitleAndDate date={date} />
+const Header = React.memo(({ date, searchValue, onFilterAction }) => (
+  <div className="header">
+    <HeaderTitleAndDate date={date} />
     <SearchBar searchValue={searchValue} onFilterAction={onFilterAction} />
   </div>
-);
+));
+Header.displayName = "Header";
 
-const _Header = React.memo(Header);
-export { _Header as Header };
+export { Header };

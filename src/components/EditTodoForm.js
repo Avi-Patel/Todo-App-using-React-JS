@@ -5,13 +5,13 @@ import { Button } from "./utilityComponents/Button";
 
 import { MODAL_WINDOW_ACTIONS, ACTIONS } from "../constants";
 
-const EditTodoForm = ({ todo, onModalWindowAction, onTodoAction }) => {
+const EditTodoForm = React.memo(({ todo, onModalWindowAction, onTodoAction }) => {
   const [todoData, setTodoData] = useState(todo);
 
   const handleTodoDataChange = useCallback(
     (event) =>
-      setTodoData((prevFormData) => ({
-        ...prevFormData,
+      setTodoData((prevTodoData) => ({
+        ...prevTodoData,
         [event.target.dataset.name]: event.target.value,
       })),
     []
@@ -25,21 +25,13 @@ const EditTodoForm = ({ todo, onModalWindowAction, onTodoAction }) => {
     onModalWindowAction({ type: MODAL_WINDOW_ACTIONS.CLOSE });
   }, [onModalWindowAction, onTodoAction, todoData]);
 
-  const handleCancel = useCallback(
-    () => onModalWindowAction({ type: MODAL_WINDOW_ACTIONS.CLOSE }),
-    [onModalWindowAction]
-  );
-
   return (
     <>
-      <div className="cwhite normal-bold-text top-bottom-mar8">Update Your Todo</div>
+      <div className="normal-bold-text top-bottom-mar8 cblack">Update Your Todo</div>
       <TodoForm formData={todoData} onFormChange={handleTodoDataChange} />
-      <div>
-        <Button label="Update" onClick={handleUpdate} />
-        <Button label="Cancel" onClick={handleCancel} />
-      </div>
+      <Button label="Update" onClick={handleUpdate} />
     </>
   );
-};
-const _EditTodoForm = React.memo(EditTodoForm);
-export { _EditTodoForm as EditTodoForm };
+});
+EditTodoForm.displayName = "EditTodoForm";
+export { EditTodoForm };
